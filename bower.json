@@ -1,0 +1,9 @@
+{
+  "name": "firebase-login",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0",
+    "firebase-element": "GoogleWebComponents/firebase-element#^1.0.12"
+  },
+  "ignore": []
+}

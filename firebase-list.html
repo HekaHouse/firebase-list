@@ -1,0 +1,72 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../firebase-element/firebase-collection.html">
+<link rel="import" href="firebase-card.html">
+
+<!--
+`<firebase-login>` is a firebase login prompt presented in a paper-dialog
+
+    <firebase-login firebase-root="https://YOUR-FIREBASE.firebaseio.com"></firebase-login>
+
+After authentication a paper-fab logout button is displayed in lower right corner
+
+Authentication triggers an iron-signal to fire named <i>logged-in</i> with the users uid as the data property
+
+Depends on <a href="https://github.com/hejty/social-media-icons">social-media-icons</a>
+
+@group HekaHouse
+@element firebase-login
+@demo demo/index.html
+-->
+
+
+<dom-module id="firebase-list">
+  <template>
+  <style>
+    :host {
+      display: block;
+    }
+    #listContainer {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  </style>
+    <firebase-collection
+      id="firebaseCollection"
+      data="{{collected}}"></firebase-collection>
+    <div id="listContainer">
+      <template is="dom-repeat" items="[[collected]]" as="item">
+        <firebase-card document="{{item}}"></firebase-card>
+      </template>
+    </div>
+  </template>
+</dom-module>
+<script>
+
+  Polymer({
+    is: 'firebase-list',
+
+    properties: {
+      firebaseRoot: {
+        type: String,
+        notify: true
+      },
+      route: {
+        type: String,
+        notify: true,
+        observer: 'routed'
+      },
+      path: {
+        type: String,
+        notify: true
+      }
+    },
+    routed: function(route) {
+      if (route === this.path && this.firebaseRoot) {
+        this.$.firebaseCollection.location = this.firebaseRoot;
+      }
+    }
+  });
+</script>

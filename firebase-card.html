@@ -1,0 +1,50 @@
+<dom-module id="firebase-card">
+  <template>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+    <firebase-document
+      id="firebaseDocument"
+      data="{{fireDocument}}"></firebase-document>
+    <paper-card heading="{{fireDocument.name}}">
+      <div class="card-content">
+        <paper-input value="{{fireDocument.name}}"></paper-input>
+        <paper-input value="{{fireDocument.phone}}"></paper-input>
+      </div>
+
+      <div class="card-actions">
+        <paper-button raised >
+          <iron-icon icon="delete"></iron-icon> Delete
+        </paper-button>
+      </div>
+    </paper-card>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'firebase-card',
+    properties: {
+      fireDocument: {
+        type: Object,
+        notify: true
+      },
+      firebaseRoot: {
+        type: String,
+        notify: true
+      },
+      documentKey: {
+        type: String,
+        notify: true,
+        observer: 'applyKey'
+      }
+    },
+    applyKey: function(documentKey) {
+      if (this.firebaseRoot) {
+        this.$.firebaseDocument.location=this.firebaseRoot+documentKey;
+      }
+    },
+
+  });
+</script>
