@@ -28,7 +28,8 @@
     properties: {
       fireDocument: {
         type: Object,
-        notify: true
+        notify: true,
+        observer: 'applyKey'
       },
       firebaseRoot: {
         type: String,
@@ -40,9 +41,9 @@
         observer: 'applyKey'
       }
     },
-    applyKey: function(documentKey) {
-      if (this.firebaseRoot) {
-        this.$.firebaseDocument.location=this.firebaseRoot+documentKey;
+    applyKey: function(in) {
+      if (this.firebaseRoot && this.documentKey) {
+        this.$.firebaseDocument.location=this.firebaseRoot+this.documentKey;
       }
     },
 
