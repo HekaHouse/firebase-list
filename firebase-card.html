@@ -28,12 +28,12 @@
     properties: {
       fireDocument: {
         type: Object,
-        notify: true,
-        observer: 'applyKey'
+        notify: true
       },
       firebaseRoot: {
         type: String,
-        notify: true
+        notify: true,
+        observer: 'applyKey'
       },
       documentKey: {
         type: String,
