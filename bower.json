@@ -5,7 +5,10 @@
     "polymer": "Polymer/polymer#^1.2.0",
     "firebase-element": "GoogleWebComponents/firebase-element#^1.0.12",
     "firebase-list": "HekaHouse/firebase-list",
-    "firebase-login": "HekaHouse/firebase-login"
+    "firebase-login": "HekaHouse/firebase-login",
+    "paper-input": "PolymerElements/paper-input#^1.1.11",
+    "paper-card": "PolymerElements/paper-card#^1.1.1",
+    "paper-button": "PolymerElements/paper-button#^1.0.11"
   },
   "ignore": []
 }
