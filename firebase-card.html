@@ -41,7 +41,7 @@
         observer: 'applyKey'
       }
     },
-    applyKey: function(in) {
+    applyKey: function(incoming) {
       if (this.firebaseRoot && this.documentKey) {
         this.$.firebaseDocument.location=this.firebaseRoot+this.documentKey;
       }
