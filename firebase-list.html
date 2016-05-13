@@ -38,7 +38,7 @@ Depends on <a href="https://github.com/hejty/social-media-icons">social-media-ic
       data="{{collected}}"></firebase-collection>
     <div id="listContainer">
       <template is="dom-repeat" items="[[collected]]" as="item">
-        <firebase-card document="{{item}}"></firebase-card>
+        <firebase-card fire-document="{{item}}"></firebase-card>
       </template>
     </div>
   </template>
