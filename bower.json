@@ -8,7 +8,8 @@
     "firebase-login": "HekaHouse/firebase-login",
     "paper-input": "PolymerElements/paper-input#^1.1.11",
     "paper-card": "PolymerElements/paper-card#^1.1.1",
-    "paper-button": "PolymerElements/paper-button#^1.0.11"
+    "paper-button": "PolymerElements/paper-button#^1.0.11",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.8"
   },
   "ignore": []
 }
