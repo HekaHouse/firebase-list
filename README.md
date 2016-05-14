@@ -1,14 +1,17 @@
-# firebase-login
-`<firebase-login>` is a firebase login prompt presented in a paper-dialog
+`<firebase-list>` wraps the content into a flexwrap container and provides a Firebase collection
 
-    <firebase-login firebase-root="https://YOUR-FIREBASE.firebaseio.com"></firebase-login>
+    <firebase-list firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION" collected="{{collected}}" route="[[route]]" path="ROUTING-PATH">
+      <template is="dom-repeat" items="[[collected]]" as="item">
+        <firebase-card
+          firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION/"
+          document-key="{{item.__firebaseKey__}}"
+          fire-document="{{fireDocument}}">
+          <paper-input label="SOME-PROPERTY" value="{{fireDocument.SOME-PROPERTY}}"></paper-input>
+          <paper-input label="SOME-OTHER-PROPERTY" value="{{fireDocument.SOME-OTHER-PROPERTY}}"></paper-input>
+        </firebase-card>
+      </template>
+    </firebase-list>
 
-After authentication a <a href="https://elements.polymer-project.org/elements/paper-fab">paper-fab</a> logout button is displayed in lower right corner
+In the above examplle replace YOUR-FIREBASE, YOUR-COLLECTION, SOME-PROPERTY, SOME-OTHER-PROPERTY with appropriate values from your Firebase.
 
-Authentication triggers an <a href="https://elements.polymer-project.org/elements/iron-signals">iron-signal</a> to fire named <i>logged-in</i> with the users uid as the data property
-
-Depends on <a href="https://github.com/hejty/social-media-icons">social-media-icons</a>
-
-Currently supports logging in with Google, Facebook, and Twitter.
-
-To learn how to configure Firebase authentication visit <a href="https://www.firebase.com/docs/web/guide/user-auth.html">the docs</a>.
+ROUTING-PATH should match the URL path used to access this element which triggers the Firebase collection to initialize.
