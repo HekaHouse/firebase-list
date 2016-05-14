@@ -66,6 +66,10 @@ ROUTING-PATH should match the URL path used to access this element which trigger
       path: {
         type: String,
         notify: true
+      },
+      collected: {
+        type: Array,
+        notify: true
       }
     },
     routed: function(route) {
