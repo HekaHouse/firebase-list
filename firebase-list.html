@@ -6,7 +6,10 @@
 
     <firebase-list firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION" collected="{{collected}}" route="[[route]]" path="ROUTING-PATH">
       <template is="dom-repeat" items="[[collected]]" as="item">
-        <firebase-card firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION/{{item.__firebaseKey__}}" fire-document="{{fireDocument}}">
+        <firebase-card
+          firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION/"
+          document-key="{{item.__firebaseKey__}}"
+          fire-document="{{fireDocument}}">
           <paper-input label="SOME-PROPERTY" value="{{fireDocument.SOME-PROPERTY}}"></paper-input>
           <paper-input label="SOME-OTHER-PROPERTY" value="{{fireDocument.SOME-OTHER-PROPERTY}}"></paper-input>
         </firebase-card>
