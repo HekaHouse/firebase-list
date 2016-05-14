@@ -1,20 +1,24 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../firebase-element/firebase-collection.html">
-<link rel="import" href="firebase-card.html">
 
 <!--
-`<firebase-login>` is a firebase login prompt presented in a paper-dialog
+`<firebase-list>` wraps the content into a flexwrap container and provides a Firebase collection
 
-    <firebase-login firebase-root="https://YOUR-FIREBASE.firebaseio.com"></firebase-login>
+    <firebase-list firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION" collected="{{collected}}" route="[[route]]" path="ROUTING-PATH">
+      <template is="dom-repeat" items="[[collected]]" as="item">
+        <firebase-card firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION/{{item.__firebaseKey__}}" fire-document="{{fireDocument}}">
+          <paper-input label="SOME-PROPERTY" value="{{fireDocument.SOME-PROPERTY}}"></paper-input>
+          <paper-input label="SOME-OTHER-PROPERTY" value="{{fireDocument.SOME-OTHER-PROPERTY}}"></paper-input>
+        </firebase-card>
+      </template>
+    </firebase-list>
 
-After authentication a paper-fab logout button is displayed in lower right corner
+In the above examplle replace YOUR-FIREBASE, YOUR-COLLECTION, SOME-PROPERTY, SOME-OTHER-PROPERTY with appropriate values from your Firebase.
 
-Authentication triggers an iron-signal to fire named <i>logged-in</i> with the users uid as the data property
-
-Depends on <a href="https://github.com/hejty/social-media-icons">social-media-icons</a>
+ROUTING-PATH should match the URL path used to access this element which triggers the Firebase collection to initialize.
 
 @group HekaHouse
-@element firebase-login
+@element firebase-list
 @demo demo/index.html
 -->
 
@@ -37,9 +41,7 @@ Depends on <a href="https://github.com/hejty/social-media-icons">social-media-ic
       id="firebaseCollection"
       data="{{collected}}"></firebase-collection>
     <div id="listContainer">
-      <template is="dom-repeat" items="[[collected]]" as="item">
-        <firebase-card firebase-root="[[firebaseRoot]]" document-key="[[item.__firebaseKey__]]"></firebase-card>
-      </template>
+      <content></content>
     </div>
   </template>
 </dom-module>
