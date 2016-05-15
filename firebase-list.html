@@ -90,25 +90,45 @@ and
     is: 'firebase-list',
 
     properties: {
+      /**
+      * URL to firebase collection
+      */
       firebaseRoot: {
         type: String,
         notify: true
       },
+      /**
+      * URL Path that is currently active
+      * Triggers Firebase initialization
+      */
       route: {
         type: String,
         notify: true,
         observer: 'routed'
       },
+      /**
+      * Expected URL path that will display this element
+      * Triggers Firebase initialization
+      */
       path: {
         type: String,
         notify: true,
         observer: 'routed'
       },
+      /**
+     * Firebase Collection items
+     * @type {{elements: Array<FirebaseDocument>}}
+     */
       collected: {
         type: Array,
         notify: true
       }
     },
+    /**
+    * Called when both path and route are set
+    * If both have been set along with the firebase url,
+    * applies firebasse url to firebase-collection.location
+    */
     routed: function(routing) {
       if (this.route === this.path && this.firebaseRoot) {
         this.$.firebaseCollection.location = this.firebaseRoot;
