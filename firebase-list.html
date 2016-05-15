@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../firebase-element/firebase-collection.html">
+<link rel="import" href="../iron-list/iron-list.html">
 
 <!--
 `<firebase-list>` wraps the content into a flexwrap container and provides a Firebase collection
@@ -43,9 +44,9 @@ ROUTING-PATH should match the URL path used to access this element which trigger
     <firebase-collection
       id="firebaseCollection"
       data="{{collected}}"></firebase-collection>
-    <div id="listContainer">
+    <iron-list items="[[data]]" as="item">
       <content></content>
-    </div>
+    </iron-list>
   </template>
 </dom-module>
 <script>
