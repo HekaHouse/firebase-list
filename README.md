@@ -2,7 +2,9 @@
 
 `<firebase-list>` wraps the content of a firebase-collection into an iron-list
 
-[API Docs and Demo](http://hekahouse.github.io/firebase-list/)
+[API Docs and Demo](https://heka-house-firebase-list-demo.firebaseapp.com/)
+
+[Source](http://github.com/hekahouse/firebase-list/)
 
 ## Example
 
