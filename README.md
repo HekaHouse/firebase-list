@@ -38,8 +38,8 @@ Then, go ahead and download the element's dependencies:
 
 firebase-list depends on
 
-[firebase-card](https://github.com/HekaHouse/firebase-card)
+[firebase-card](https://heka-house-firebase-card-demo.firebaseapp.com/)
 
 and
 
-[firebase-input](https://github.com/HekaHouse/firebase-input)
+[firebase-input](https://heka-house-firebase-input-demo.firebaseapp.com/)
