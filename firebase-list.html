@@ -1,20 +1,51 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../firebase-element/firebase-collection.html">
 <link rel="import" href="../iron-list/iron-list.html">
-
+<link rel="import" href="../firebase-card/firebase-card.html">
+<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
 <!--
+# firebase-list
+
 `<firebase-list>` wraps the content of a firebase-collection into an iron-list
 
-    <firebase-list firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION" collected="{{collected}}" route="[[route]]" path="ROUTING-PATH">
+## Example
+
+    <firebase-list
+      firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION"
+      collected="{{collected}}"
+      route="[[route]]"
+      path="ROUTING-PATH">
     </firebase-list>
 
 In the above examplle replace YOUR-FIREBASE, YOUR-COLLECTION with appropriate values from your Firebase.
 
+## Note
+
 ROUTING-PATH should match the URL path used to access this element which triggers the Firebase collection to initialize.
+
+## Dependencies
+
+Element dependencies are managed via [Bower](http://bower.io/). You can
+install that via:
+
+    npm install -g bower
+
+Then, go ahead and download the element's dependencies:
+
+    bower install
+
+firebase-list depends on
+
+[firebase-card](https://github.com/HekaHouse/firebase-card)
+
+and
+
+[firebase-input](https://github.com/HekaHouse/firebase-input)
 
 @group HekaHouse
 @element firebase-list
 @demo demo/index.html
+@hero hero.svg
 -->
 
 
@@ -30,7 +61,6 @@ ROUTING-PATH should match the URL path used to access this element which trigger
       flex-wrap: nowrap;
       justify-content: flex-start;
       align-content: stretch;
-      height:1300px;
       width: 100%;
       min-height:400px;
       margin: 16px;
@@ -39,17 +69,18 @@ ROUTING-PATH should match the URL path used to access this element which trigger
     <firebase-collection
       id="firebaseCollection"
       data="{{collected}}"></firebase-collection>
+
       <template is="dom-if" if="[[collected]]">
-        <iron-list id="listContainer" items="{{collected}}" as="doc">
-
-            <template>
-              <firebase-card
-                firebase-root="https://soundstr.firebaseio.com/venues"
-                document-key="{{doc.__firebaseKey__}}">
-              </firebase-card>
-            </template>
-
-        </iron-list>
+        <div class="fit">
+          <iron-list id="listContainer" class="flex" items="{{collected}}" as="doc">
+              <template>
+                <firebase-card
+                  firebase-root="{{firebaseRoot}}"
+                  document-key="{{doc.__firebaseKey__}}">
+                </firebase-card>
+              </template>
+          </iron-list>
+        </div>
       </template>
   </template>
 </dom-module>
@@ -70,15 +101,16 @@ ROUTING-PATH should match the URL path used to access this element which trigger
       },
       path: {
         type: String,
-        notify: true
+        notify: true,
+        observer: 'routed'
       },
       collected: {
         type: Array,
         notify: true
       }
     },
-    routed: function(route) {
-      if (route === this.path && this.firebaseRoot) {
+    routed: function(routing) {
+      if (this.route === this.path && this.firebaseRoot) {
         this.$.firebaseCollection.location = this.firebaseRoot;
       }
     }
