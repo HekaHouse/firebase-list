@@ -6,6 +6,10 @@
 
 [Source](http://github.com/hekahouse/firebase-list/)
 
+## Install
+
+    bower install --save HekaHouse/firebase-list
+
 ## Example
 
     <firebase-list
