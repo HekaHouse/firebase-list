@@ -13,7 +13,7 @@
   ],
   "main": "firebase-list.html",
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/HekaHouse/firebase-list/",
+  "homepage": "https://HekaHouse.github.io/firebase-list/",
   "ignore": [
     "/.*",
     "/test/"
