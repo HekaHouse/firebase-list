@@ -1,10 +1,14 @@
-#firebase-list
+# firebase-list
 
 `<firebase-list>` wraps the content of a firebase-collection into an iron-list
 
 ## Example
 
-    <firebase-list firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION" collected="{{collected}}" route="[[route]]" path="ROUTING-PATH">
+    <firebase-list
+      firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION"
+      collected="{{collected}}"
+      route="[[route]]"
+      path="ROUTING-PATH">
     </firebase-list>
 
 In the above examplle replace YOUR-FIREBASE, YOUR-COLLECTION with appropriate values from your Firebase.
@@ -26,8 +30,8 @@ Then, go ahead and download the element's dependencies:
 
 firebase-list depends on
 
-https://github.com/HekaHouse/firebase-card
+[firebase-card](https://github.com/HekaHouse/firebase-card)
 
 and
 
-https://github.com/HekaHouse/firebase-input
+[firebase-input](https://github.com/HekaHouse/firebase-input)
