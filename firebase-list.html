@@ -71,7 +71,7 @@ and
       align-content: stretch;
       width: 100%;
       min-height:400px;
-      margin: 16px;
+      margin: 4px;
     }
   </style>
     <firebase-collection
@@ -80,7 +80,7 @@ and
 
       <template is="dom-if" if="[[collected]]">
         <div class="fit">
-          <iron-list id="listContainer" class="flex" items="{{collected}}" as="doc">
+          <iron-list id="listContainer" class="fit" items="{{collected}}" as="doc">
               <template>
                 <firebase-card
                   firebase-root="{{firebaseRoot}}"
