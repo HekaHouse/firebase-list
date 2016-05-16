@@ -112,7 +112,7 @@ and
       route: {
         type: String,
         notify: true,
-        observer: 'routed'
+        observer: '_routed'
       },
       /**
       * Expected URL path that will display this element
@@ -121,7 +121,7 @@ and
       path: {
         type: String,
         notify: true,
-        observer: 'routed'
+        observer: '_routed'
       },
       /**
      * Firebase Collection items
@@ -137,7 +137,7 @@ and
     * If both have been set along with the firebase url,
     * applies firebasse url to firebase-collection.location
     */
-    routed: function(routing) {
+    _routed: function(routing) {
       if (this.route === this.path && this.firebaseRoot) {
         this.$.firebaseCollection.location = this.firebaseRoot;
       }
