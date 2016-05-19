@@ -12,8 +12,8 @@
     "iron-list"
   ],
   "main": "firebase-list.html",
-  "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://HekaHouse.github.io/firebase-list/",
+  "license": "https://heka-house-polymer-demos.firebaseapp.com/LICENSE",
+  "homepage": "https://github.com/HekaHouse/firebase-list/",
   "ignore": [
     "/.*",
     "/test/"

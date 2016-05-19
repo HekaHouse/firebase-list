@@ -1,5 +1,5 @@
 {
-  "firebase": "heka-house-firebase-list-demo",
+  "firebase": "heka-house-polymer-demos",
   "public": "firebase-list-demo-site",
   "ignore": [
     "firebase.json",

@@ -2,7 +2,7 @@
 
 `<firebase-list>` wraps the content of a firebase-collection into an iron-list
 
-[API Docs and Demo](https://heka-house-firebase-list-demo.firebaseapp.com/)
+[API Docs and Demo](https://heka-house-polymer-demos.firebaseapp.com/)
 
 [Source](http://github.com/hekahouse/firebase-list/)
 
@@ -38,8 +38,8 @@ Then, go ahead and download the element's dependencies:
 
 firebase-list depends on
 
-[firebase-card](https://heka-house-firebase-card-demo.firebaseapp.com/)
+[firebase-card](https://heka-house-polymer-demos.firebaseapp.com/)
 
 and
 
-[firebase-input](https://heka-house-firebase-input-demo.firebaseapp.com/)
+[firebase-input](https://heka-house-polymer-demos.firebaseapp.com/)
