@@ -2,7 +2,7 @@
 
 `<firebase-list>` wraps the content of a firebase-collection into an iron-list
 
-[API Docs and Demo](https://heka-house-polymer-demos.firebaseapp.com/)
+[API Docs and Demo](https://heka-house-polymer-demos.firebaseapp.com/firebase-list)
 
 [Source](http://github.com/hekahouse/firebase-list/)
 
@@ -19,7 +19,7 @@
       path="ROUTING-PATH">
     </firebase-list>
 
-In the above examplle replace YOUR-FIREBASE, YOUR-COLLECTION with appropriate values from your Firebase.
+In the above example replace YOUR-FIREBASE, YOUR-COLLECTION with appropriate values from your Firebase.
 
 ## Note
 
@@ -38,8 +38,8 @@ Then, go ahead and download the element's dependencies:
 
 firebase-list depends on
 
-[firebase-card](https://heka-house-polymer-demos.firebaseapp.com/)
+[firebase-card](https://heka-house-polymer-demos.firebaseapp.com/firebase-card)
 
 and
 
-[firebase-input](https://heka-house-polymer-demos.firebaseapp.com/)
+[firebase-input](https://heka-house-polymer-demos.firebaseapp.com/firebase-input)
