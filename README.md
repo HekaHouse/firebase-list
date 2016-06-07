@@ -13,17 +13,25 @@
 ## Example
 
     <firebase-list
-      firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION"
-      collected="{{collected}}"
-      route="[[route]]"
-      path="ROUTING-PATH">
+      app-name="heka-house"
+      app="{{app}}"
+      user="{{user}}"
+      firebase-branch="/sample"
+      route="default"
+      path="default">
     </firebase-list>
 
-In the above example replace YOUR-FIREBASE, YOUR-COLLECTION with appropriate values from your Firebase.
+The Firebase document is initiaized once the user and app properties are provided.
 
-## Note
+These come from associated firebase-app and firebase-auth elements
 
-ROUTING-PATH should match the URL path used to access this element which triggers the Firebase collection to initialize.
+## Notes
+
+`route` must match `path` to trigger the Firebase collection to initialize.
+
+These should correspond with the url used to access to ensure lazy loading.
+
+This element uses the `firebase-query` to access data.
 
 ## Dependencies
 
@@ -43,3 +51,5 @@ firebase-list depends on
 and
 
 [firebase-input](https://heka-house-polymer-demos.firebaseapp.com/firebase-input)
+
+and uses the pre-release [polymerfire](https://github.com/firebase/polymerfire)

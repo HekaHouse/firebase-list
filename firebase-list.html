@@ -1,5 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../firebase-element/firebase-collection.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
 <link rel="import" href="../iron-list/iron-list.html">
 <link rel="import" href="../firebase-card/firebase-card.html">
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
@@ -19,17 +19,25 @@
 ## Example
 
     <firebase-list
-      firebase-root="https://YOUR-FIREBASE.firebaseio.com/YOUR-COLLECTION"
-      collected="{{collected}}"
-      route="[[route]]"
-      path="ROUTING-PATH">
+      app-name="heka-house"
+      app="{{app}}"
+      user="{{user}}"
+      firebase-branch="/sample"
+      route="default"
+      path="default">
     </firebase-list>
 
-In the above example replace YOUR-FIREBASE, YOUR-COLLECTION with appropriate values from your Firebase.
+The Firebase document is initiaized once the user and app properties are provided.
 
-## Note
+These come from associated firebase-app and firebase-auth elements
 
-ROUTING-PATH should match the URL path used to access this element which triggers the Firebase collection to initialize.
+## Notes
+
+`route` must match `path` to trigger the Firebase collection to initialize.
+
+These should correspond with the url used to access to ensure lazy loading.
+
+This element uses the `firebase-query` to access data.
 
 ## Dependencies
 
@@ -49,6 +57,8 @@ firebase-list depends on
 and
 
 [firebase-input](https://heka-house-polymer-demos.firebaseapp.com/firebase-input)
+
+and uses the pre-release [polymerfire](https://github.com/firebase/polymerfire)
 
 @group HekaHouse
 @element firebase-list
@@ -74,17 +84,31 @@ and
       margin: 4px;
     }
   </style>
-    <firebase-collection
-      id="firebaseCollection"
-      data="{{collected}}"></firebase-collection>
+
+    <firebase-query log
+      id="firebaseQuery"
+      limit-to-last="2"
+      app-name="{{appName}}"
+      query="{{query}}"
+      data="{{collected}}"
+      order-by-child="{{orderByChild}}"
+      start-at="{{startAt}}"
+      end-at="{{endAt}}"
+      equal-to="{{equalTo}}"
+      limit-to-first="{{limitToFirst}}"
+      limit-to-last="{{limitToLast}}"></firebase-query>
 
       <template is="dom-if" if="[[collected]]">
         <div class="fit">
           <iron-list id="listContainer" class="fit" items="{{collected}}" as="doc">
               <template>
                 <firebase-card
-                  firebase-root="{{firebaseRoot}}"
-                  document-key="{{doc.__firebaseKey__}}">
+                  app-name="{{appName}}"
+                  app="{{app}}"
+                  user="{{user}}"
+                  firebase-branch="{{firebaseBranch}}"
+                  document-key="{{doc.$key}}"
+                  readonly="{{readonly}}">
                 </firebase-card>
               </template>
           </iron-list>
@@ -99,10 +123,32 @@ and
 
     properties: {
       /**
-      * URL to firebase collection
+      * path to Firebase collection
       */
-      firebaseRoot: {
+      firebaseBranch: {
         type: String,
+        notify: true
+      },
+      /**
+      * Firebase App name used in firebase-app
+      */
+      appName: {
+        type: String,
+        notify: true
+      },
+
+      /**
+      * Firebase user to ensure setup
+      */
+      user: {
+        type: Object,
+        notify: true
+      },
+      /**
+      * Firebase app to ensure setup
+      */
+      app: {
+        type: Object,
         notify: true
       },
       /**
@@ -130,17 +176,126 @@ and
       collected: {
         type: Array,
         notify: true
+      },
+     /**
+     * Pass through value for inner firebase-card
+     */
+      readonly: {
+        type: Boolean,
+        notify: true
+      },
+      /**
+       * Pass through value for inner firebase-query
+       * The child key of each query result to order the query by.
+       *
+       * Changing this value generates a new `query` ordered by the
+       * specified child key.
+       */
+      orderByChild: {
+        type: String,
+        notify: true,
+        value: ''
+      },
+      /**
+       * Pass through value for inner firebase-query
+       * The value to start at in the query.
+       *
+       * Changing this value generates a new `query` with the specified
+       * starting point. The generated `query` includes children which match
+       * the specified starting point.
+       */
+      startAt: {
+        type: String,
+        notify: true,
+        value: ''
+      },
+      /**
+       * Pass through value for inner firebase-query
+       * The value to end at in the query.
+       *
+       * Changing this value generates a new `query` with the specified
+       * ending point. The generated `query` includes children which match
+       * the specified ending point.
+       */
+      endAt: {
+        type: String,
+        notify: true,
+        value: null
+      },
+      /**
+       * Pass through value for inner firebase-query
+       * Specifies a child-key value that must be matched for each candidate result.
+       *
+       * Changing this value generates a new `query` which includes children
+       * which match the specified value.
+       */
+      equalTo: {
+        type: Object,
+        notify: true,
+        value: null
+      },
+      /**
+       * Pass through value for inner firebase-query
+       * The maximum number of nodes to include in the query.
+       *
+       * Changing this value generates a new `query` limited to the first
+       * number of children.
+       */
+      limitToFirst: {
+        type: Number,
+        notify: true,
+        value: 0
+      },
+      /**
+       * Pass through value for inner firebase-query
+       * The maximum number of nodes to include in the query.
+       *
+       * Changing this value generates a new `query` limited to the last
+       * number of children.
+       */
+      limitToLast: {
+        type: Number,
+        notify: true,
+        value: 0
+      }
+    },
+    observers: ['_routed(firebaseBranch,appName,route,path,app,user)'],
+    /**
+    * Called when all configuration properties are set
+    * If all have been set along with the firebase url,
+    * applies firebasse url to firebase-query.path
+    */
+    _routed: function(firebaseBranch,appName,route,path,app,user) {
+      if (app
+          && user
+          && this.route === this.path
+          && this.firebaseBranch) {
+        this.$.firebaseQuery.path = this.firebaseBranch;
       }
     },
     /**
-    * Called when both path and route are set
-    * If both have been set along with the firebase url,
-    * applies firebasse url to firebase-collection.location
+    * Convenience function to add a new object to a collection
+    * If key is provided use it otherwise use default Firebase key
     */
-    _routed: function(routing) {
-      if (this.route === this.path && this.firebaseRoot) {
-        this.$.firebaseCollection.location = this.firebaseRoot;
+    add: function(object,key) {
+      if (key) {
+        this.$.firebaseQuery.query.ref.child(key).set(object);
+      } else {
+        this.$.firebaseQuery.query.ref.push().set(object);
       }
+
+    },
+    /**
+    * Convenience function to remove an object identified by provided key
+    */
+    remove: function(key) {
+      this.$.firebaseQuery.query.ref.child(key).remove()
+      .then(function() {
+        console.log("Remove succeeded.")
+      })
+      .catch(function(error) {
+        console.log("Remove failed: " + error.message)
+      });
     }
   });
 </script>

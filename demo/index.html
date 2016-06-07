@@ -4,13 +4,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>firebase-list demo</title>
-    <script src="../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../../polymerfire/firebase-app.html">
+    <link rel="import" href="../../polymerfire/firebase-auth.html">
+    <link rel="import" href="../../paper-input/paper-input.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../../iron-icons/iron-icons.html">
     <link rel="import" href="../firebase-list.html">
 
 
     <style is="custom-style" include="demo-pages-shared-styles">
       app-header span {
         margin: 16px;
+      }
+      .entry {
+          margin: 8px;
+          padding: 8px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+          width: 90%;
+      }
+      .entry paper-input {
+          width: 100%;
+      }
+      .entry paper-button {
+          margin: auto;
       }
     </style>
   </head>
@@ -19,14 +39,68 @@
       <app-header condenses fixed effects="resize-title blend-background waterfall">
         <span>loads a firebase collection for display in a firebase-card.</span>
       </app-header>
-
+        <span class='entry'>
+          <paper-input label="New Entry Name" id="entryInput" maxLength="144"></paper-input>
+          <paper-button  raised id="addEntry">
+            <iron-icon icon="add" ></iron-icon>
+          </paper-button>
+        </span>
+        <br/>
+        <span class='entry'>
+          <paper-input label="Entry to Remove" id="removalInput" maxLength="144"></paper-input>
+          <paper-button  raised id="removeEntry">
+            <iron-icon icon="delete" ></iron-icon>
+          </paper-button>
+        </span>
+        <br/>
+        <firebase-app
+          id="app"
+          name="heka-house"
+          api-key="API-KEY"
+          auth-domain="heka-house-polymer-demos.firebaseapp.com"
+          database-url="https://heka-house-polymer-demos.firebaseio.com"
+          app="{{app}}">
+        </firebase-app>
+        <firebase-auth
+          id="auth"
+          app-name="heka-house"
+          user="{{user}}"></firebase-auth>
+        <h2>Two most recent items in collection:</h2>
         <firebase-list
-          firebase-root="https://ohio-voter.firebaseio.com/voters/43437/SMITH"
+          app-name="heka-house"
+          app="{{app}}"
+          user="{{user}}"
+          firebase-branch="/sample"
           route="default"
-          path="default">
+          path="default"
+          limit-to-last="2">
         </firebase-list>
-
-
   </template>
+  <script type="text/javascript">
+    document.addEventListener('WebComponentsReady', function() {
+      document.querySelector('firebase-auth').signInAnonymously();
+
+      document.querySelector("paper-button#addEntry").addEventListener("click", addNewEntry);
+
+      document.querySelector("paper-button#removeEntry").addEventListener("click", removeEntry);
+
+      function addNewEntry(el) {
+        var named = document.querySelector('paper-input#entryInput').value;
+        if (named.length > 0) {
+          document.querySelector('firebase-list').add({"name":named},named);
+          document.querySelector('paper-input#entryInput').value = "";
+        }
+      }
+
+      function removeEntry(el) {
+        var named = document.querySelector('paper-input#removalInput').value;
+        if (named.length > 0) {
+          document.querySelector('firebase-list').remove(named);
+          document.querySelector('paper-input#removalInput').value = "";
+        }
+      }
+    });
+
+  </script>
 </body>
 </html>
