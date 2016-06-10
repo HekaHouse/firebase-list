@@ -91,8 +91,6 @@ and uses the pre-release [polymerfire](https://github.com/firebase/polymerfire)
       query="{{query}}"
       data="{{collected}}"
       order-by-child="{{orderByChild}}"
-      start-at="{{startAt}}"
-      end-at="{{endAt}}"
       equal-to="{{equalTo}}"
       limit-to-first="{{limitToFirst}}"
       limit-to-last="{{limitToLast}}"></firebase-query>
@@ -194,32 +192,6 @@ and uses the pre-release [polymerfire](https://github.com/firebase/polymerfire)
         type: String,
         notify: true,
         value: ''
-      },
-      /**
-       * Pass through value for inner firebase-query
-       * The value to start at in the query.
-       *
-       * Changing this value generates a new `query` with the specified
-       * starting point. The generated `query` includes children which match
-       * the specified starting point.
-       */
-      startAt: {
-        type: String,
-        notify: true,
-        value: ''
-      },
-      /**
-       * Pass through value for inner firebase-query
-       * The value to end at in the query.
-       *
-       * Changing this value generates a new `query` with the specified
-       * ending point. The generated `query` includes children which match
-       * the specified ending point.
-       */
-      endAt: {
-        type: String,
-        notify: true,
-        value: null
       },
       /**
        * Pass through value for inner firebase-query
