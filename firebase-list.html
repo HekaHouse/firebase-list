@@ -80,7 +80,7 @@ and uses the pre-release [polymerfire](https://github.com/firebase/polymerfire)
       justify-content: flex-start;
       align-content: stretch;
       width: 100%;
-      min-height:400px;
+      min-height:200px;
       margin: 4px;
     }
   </style>
@@ -192,6 +192,32 @@ and uses the pre-release [polymerfire](https://github.com/firebase/polymerfire)
         type: String,
         notify: true,
         value: ''
+      },
+      /**
+       * Pass through value for inner firebase-query
+       * The value to start at in the query.
+       *
+       * Changing this value generates a new `query` with the specified
+       * starting point. The generated `query` includes children which match
+       * the specified starting point.
+       */
+      startAt: {
+        type: String,
+        notify: true,
+        value: ''
+      },
+      /**
+       * Pass through value for inner firebase-query
+       * The value to end at in the query.
+       *
+       * Changing this value generates a new `query` with the specified
+       * ending point. The generated `query` includes children which match
+       * the specified ending point.
+       */
+      endAt: {
+        type: String,
+        notify: true,
+        value: null
       },
       /**
        * Pass through value for inner firebase-query
